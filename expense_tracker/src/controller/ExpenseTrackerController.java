@@ -13,9 +13,14 @@ public class ExpenseTrackerController {
   private ExpenseTrackerModel model;
   private ExpenseTrackerView view;
 
+  private TransactionFilter amtFilter;
+  private  TransactionFilter catFilter;
+
   public ExpenseTrackerController(ExpenseTrackerModel model, ExpenseTrackerView view) {
     this.model = model;
     this.view = view;
+    this.catFilter = new CategoryFilter();
+    this.amtFilter = new AmountFilter();
 
     // Set up view event handlers
   }
@@ -44,6 +49,17 @@ public class ExpenseTrackerController {
     refresh();
     return true;
   }
-  
+
   // Other controller methods
+  public void applyFilter(List<Object> filterList, String filterType){
+        List<Transaction> allTransactions = model.getTransactions();
+        List<Transaction> transactions;
+        if(filterType.equalsIgnoreCase("category")){
+          transactions = catFilter.filter(allTransactions, filterList);
+        }
+        else{
+          transactions = amtFilter.filter(allTransactions, filterList);
+        }
+        view.refreshTable(transactions);
+  }
 }

@@ -7,6 +7,9 @@ import javax.swing.table.DefaultTableModel;
 import controller.InputValidation;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusListener;
 import java.text.NumberFormat;
 
 import model.Transaction;
@@ -16,6 +19,8 @@ public class ExpenseTrackerView extends JFrame {
 
   private JTable transactionsTable;
   private JButton addTransactionBtn;
+
+  private JButton addFilterBtn;
   private JFormattedTextField amountField;
   private JTextField categoryField;
   private DefaultTableModel model;
@@ -23,12 +28,13 @@ public class ExpenseTrackerView extends JFrame {
 
   public ExpenseTrackerView() {
     setTitle("Expense Tracker"); // Set title
-    setSize(600, 400); // Make GUI larger
+    setSize(900, 400); // Make GUI larger
 
     String[] columnNames = {"serial", "Amount", "Category", "Date"};
     this.model = new DefaultTableModel(columnNames, 0);
 
     addTransactionBtn = new JButton("Add Transaction");
+    addFilterBtn = new JButton("Add Filter");
 
     // Create UI components
     JLabel amountLabel = new JLabel("Amount:");
@@ -41,6 +47,18 @@ public class ExpenseTrackerView extends JFrame {
     JLabel categoryLabel = new JLabel("Category:");
     categoryField = new JTextField(10);
 
+
+    //dropdown
+    JLabel filterTypeLabel = new JLabel("Select a filter type: ");
+    String[] filterType = {"None","Category", "Amount"};
+    JComboBox<String> filterBox = new JComboBox<>(filterType);
+
+    String[] categoryFilterOption = {"food", "travel", "bills", "entertainment", "other"};
+    JComboBox<String> categoryBox = new JComboBox<>(categoryFilterOption);
+    JTextField minAmountField = new JTextField(7);
+    JTextField maxAmountField = new JTextField(7);
+
+
     // Create table
     transactionsTable = new JTable(model);
   
@@ -50,10 +68,42 @@ public class ExpenseTrackerView extends JFrame {
     inputPanel.add(amountField);
     inputPanel.add(categoryLabel); 
     inputPanel.add(categoryField);
+
+    inputPanel.add(filterTypeLabel);
+    inputPanel.add(filterBox);
+    inputPanel.add(categoryBox).setVisible(false);
+    inputPanel.add(minAmountField).setVisible(false);
+    inputPanel.add(maxAmountField).setVisible(false);
+
+    filterBox.addActionListener(e -> {
+      String filterSelected = (String) filterBox.getSelectedItem();
+      assert filterSelected != null;
+      if (filterSelected.equals("Category")){
+        inputPanel.add(categoryBox).setVisible(true);
+        inputPanel.add(minAmountField).setVisible(false);
+        inputPanel.add(maxAmountField).setVisible(false);
+      }
+      else if (filterSelected.equals("Amount")) {
+        inputPanel.add(categoryBox).setVisible(false);
+        inputPanel.add(minAmountField).setVisible(true);
+        inputPanel.add(maxAmountField).setVisible(true);
+
+      }
+      else{
+        inputPanel.add(categoryBox).setVisible(false);
+        inputPanel.add(minAmountField).setVisible(false);
+        inputPanel.add(maxAmountField).setVisible(false);
+      }
+      setVisible(true);
+    });
+
+
+
     inputPanel.add(addTransactionBtn);
-  
+
     JPanel buttonPanel = new JPanel();
     buttonPanel.add(addTransactionBtn);
+    buttonPanel.add(addFilterBtn);
   
     // Add panels to frame
     add(inputPanel, BorderLayout.NORTH);
@@ -61,9 +111,11 @@ public class ExpenseTrackerView extends JFrame {
     add(buttonPanel, BorderLayout.SOUTH);
   
     // Set frame properties
-    setSize(400, 300);
+    setSize(900, 300);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setVisible(true);
+
+
   
   }
 
