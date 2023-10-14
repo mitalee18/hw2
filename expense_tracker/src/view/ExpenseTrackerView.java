@@ -9,6 +9,7 @@ import controller.InputValidation;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.text.NumberFormat;
 
@@ -55,8 +56,8 @@ public class ExpenseTrackerView extends JFrame {
 
     String[] categoryFilterOption = {"food", "travel", "bills", "entertainment", "other"};
     JComboBox<String> categoryBox = new JComboBox<>(categoryFilterOption);
-    JTextField minAmountField = new JTextField(7);
-    JTextField maxAmountField = new JTextField(7);
+    JTextField minAmountField = new JTextField("Minimum Amount", 10);
+    JTextField maxAmountField = new JTextField("Maximum Amount", 10);
 
 
     // Create table
@@ -87,6 +88,39 @@ public class ExpenseTrackerView extends JFrame {
         inputPanel.add(categoryBox).setVisible(false);
         inputPanel.add(minAmountField).setVisible(true);
         inputPanel.add(maxAmountField).setVisible(true);
+
+        minAmountField.addFocusListener(new FocusListener() {
+          @Override
+          public void focusGained(FocusEvent e) {
+            if (minAmountField.getText().equals("Minimum Amount")){
+              minAmountField.setText("");
+            }
+          }
+
+          @Override
+          public void focusLost(FocusEvent e) {
+            if(minAmountField.getText().isEmpty()){
+              minAmountField.setText("Minimum Amount");
+            }
+          }
+        });
+
+        maxAmountField.addFocusListener(new FocusListener() {
+          @Override
+          public void focusGained(FocusEvent e) {
+            if (maxAmountField.getText().equals("Maximum Amount")){
+              maxAmountField.setText("");
+            }
+          }
+
+          @Override
+          public void focusLost(FocusEvent e) {
+            if (maxAmountField.getText().isEmpty()){
+              maxAmountField.setText("Maximum Amount");
+            }
+          }
+        });
+
 
       }
       else{
