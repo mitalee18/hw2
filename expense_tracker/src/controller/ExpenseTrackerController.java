@@ -65,10 +65,8 @@ public class ExpenseTrackerController {
           }
           transactions = amtFilter.filter(allTransactions, filterList);
         }
-        view.refreshTable(transactions);
-//        for (Transaction t: transactions){
-//          System.out.println(t.getAmount());
-//        }
+        view.refreshTableWithColor(allTransactions, transactions);
+
         return true;
   }
 }
