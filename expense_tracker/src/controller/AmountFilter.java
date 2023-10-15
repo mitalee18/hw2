@@ -9,7 +9,7 @@ public class AmountFilter implements TransactionFilter{
     @Override
     public List<Transaction> filter(List<Transaction> transactions, List<Object> filterValues) {
         return transactions.stream()
-                .filter(t -> t.getAmount() >= (Integer) filterValues.get(0) && t.getAmount() <=  (Integer) filterValues.get(1))
+                .filter(t -> t.getAmount() >= (Double) filterValues.get(0) && t.getAmount() <=  (Double) filterValues.get(1))
                 .collect(Collectors.toList());
     }
 }

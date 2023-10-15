@@ -51,15 +51,24 @@ public class ExpenseTrackerController {
   }
 
   // Other controller methods
-  public void applyFilter(List<Object> filterList, String filterType){
+  public boolean applyFilter(List<Object> filterList, String filterType){
         List<Transaction> allTransactions = model.getTransactions();
         List<Transaction> transactions;
+        //checking the type of filter chosen
         if(filterType.equalsIgnoreCase("category")){
           transactions = catFilter.filter(allTransactions, filterList);
         }
         else{
+          //testing if the filter input for min and max amount is valid
+          if (!InputValidation.isValidAmount((double) filterList.get(0)) && !InputValidation.isValidAmount((double) filterList.get(1))) {
+            return false;
+          }
           transactions = amtFilter.filter(allTransactions, filterList);
         }
         view.refreshTable(transactions);
+//        for (Transaction t: transactions){
+//          System.out.println(t.getAmount());
+//        }
+        return true;
   }
 }

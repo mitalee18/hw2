@@ -18,13 +18,19 @@ import java.util.List;
 
 public class ExpenseTrackerView extends JFrame {
 
-  private JTable transactionsTable;
-  private JButton addTransactionBtn;
+  private final JTable transactionsTable;
+  private final JButton addTransactionBtn;
 
-  private JButton addFilterBtn;
+  private final JButton addFilterBtn;
   private JFormattedTextField amountField;
   private JTextField categoryField;
-  private DefaultTableModel model;
+  private final DefaultTableModel model;
+
+  private final JComboBox<String> filterBox;
+  private final JFormattedTextField minAmountField;
+  private final JFormattedTextField maxAmountField;
+
+  private final JComboBox<String> categoryBox;
   
 
   public ExpenseTrackerView() {
@@ -52,12 +58,14 @@ public class ExpenseTrackerView extends JFrame {
     //dropdown
     JLabel filterTypeLabel = new JLabel("Select a filter type: ");
     String[] filterType = {"None","Category", "Amount"};
-    JComboBox<String> filterBox = new JComboBox<>(filterType);
+    filterBox = new JComboBox<>(filterType);
 
     String[] categoryFilterOption = {"food", "travel", "bills", "entertainment", "other"};
-    JComboBox<String> categoryBox = new JComboBox<>(categoryFilterOption);
-    JTextField minAmountField = new JTextField("Minimum Amount", 10);
-    JTextField maxAmountField = new JTextField("Maximum Amount", 10);
+    categoryBox = new JComboBox<>(categoryFilterOption);
+    minAmountField = new JFormattedTextField(format);
+    maxAmountField = new JFormattedTextField(format);
+    minAmountField.setColumns(10);
+    maxAmountField.setColumns(10);
 
 
     // Create table
@@ -120,8 +128,6 @@ public class ExpenseTrackerView extends JFrame {
             }
           }
         });
-
-
       }
       else{
         inputPanel.add(categoryBox).setVisible(false);
@@ -130,8 +136,6 @@ public class ExpenseTrackerView extends JFrame {
       }
       setVisible(true);
     });
-
-
 
     inputPanel.add(addTransactionBtn);
 
@@ -174,14 +178,40 @@ public class ExpenseTrackerView extends JFrame {
       // Fire table update
       transactionsTable.updateUI();
   
-    }  
-  
+    }
 
-  
-  
+
   public JButton getAddTransactionBtn() {
     return addTransactionBtn;
   }
+
+  public String getFilterSelected(){
+    return (String) filterBox.getSelectedItem();
+  }
+  public JButton getAddFilterBtn() {
+    return addFilterBtn;
+  }
+
+  public double getMinAmountField(){
+    if(minAmountField.getText().isEmpty()){
+      return 0;
+    }else{
+      return Double.parseDouble(minAmountField.getText());
+    }
+  }
+
+  public String getFilteredCategory(){
+    return (String) categoryBox.getSelectedItem();
+  }
+
+  public double getMaxAmountField(){
+    if(minAmountField.getText().isEmpty()){
+      return 1000;
+    }else{
+      return Double.parseDouble(maxAmountField.getText());
+    }
+  }
+
   public DefaultTableModel getTableModel() {
     return model;
   }
