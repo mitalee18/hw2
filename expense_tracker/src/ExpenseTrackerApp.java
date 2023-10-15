@@ -53,7 +53,7 @@ public class ExpenseTrackerApp {
       else if (filterSelected.equals("Amount")) {
         obj = new ArrayList<>();
         minAmount = view.getMinAmountField();
-        maxAmount = view.getMaxAmountField();
+        maxAmount = view.getMinAmountField();
         obj.add(minAmount);
         obj.add(maxAmount);
         added = controller.applyFilter(obj, filterSelected);

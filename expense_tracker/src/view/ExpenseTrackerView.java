@@ -2,7 +2,6 @@ package view;
 
 import javax.swing.*;
 import javax.swing.JFormattedTextField.AbstractFormatterFactory;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import controller.InputValidation;
@@ -181,55 +180,6 @@ public class ExpenseTrackerView extends JFrame {
   
     }
 
-  public void refreshTableWithColor(List<Transaction> allTransactions, List<Transaction> filteredTransactions) {
-    // Clear existing rows
-    model.setRowCount(0);
-    // Get row count
-    int rowNum = model.getRowCount();
-    double totalCost=0;
-
-    //calculating total transactions and adding into table
-    for(Transaction t : allTransactions)
-    {
-      totalCost+=t.getAmount();
-      model.addRow(new Object[]{
-              rowNum+=1, t.getAmount(), t.getCategory(), t.getTimestamp()
-      });
-    }
-
-    // Add total row
-    Object[] totalRow = {"Total", null, null, totalCost};
-    model.addRow(totalRow);
-
-    transactionsTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-      @Override
-      public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-                                                     boolean hasFocus, int row, int column) {
-        Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-        // Add rows from transactions list
-        boolean isHighlighted = false;
-
-        if (row < filteredTransactions.size() && filteredTransactions.contains(allTransactions.get(row))){
-          isHighlighted = true;
-        }
-
-        if(isHighlighted) {
-          c.setBackground(new Color(173, 255, 168)); // Light green
-        }
-        else {
-          c.setBackground(Color.WHITE);
-        }
-        return c;
-      }});
-
-
-
-
-    // Fire table update
-    transactionsTable.updateUI();
-
-  }
 
   public JButton getAddTransactionBtn() {
     return addTransactionBtn;
