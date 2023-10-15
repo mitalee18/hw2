@@ -7,12 +7,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CategoryFilter implements TransactionFilter{
-    private final String[] validWords = {"food", "travel", "bills", "entertainment", "other"};
+
     @Override
     public List<Transaction> filter(List<Transaction> transactions, List<Object> filterValues) {
 
         return transactions.stream()
-                .filter(t -> Arrays.asList(validWords).contains(t.getCategory()))
+                .filter(t -> t.getCategory().equalsIgnoreCase((String) filterValues.get(0)))
                 .collect(Collectors.toList());
     }
 }
