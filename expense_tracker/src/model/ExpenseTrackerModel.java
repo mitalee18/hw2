@@ -1,12 +1,12 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 public class ExpenseTrackerModel {
 
+  //Encapsulating List of Transactions
   private final List<Transaction> transactions;
 
   public ExpenseTrackerModel() {
@@ -22,6 +22,7 @@ public class ExpenseTrackerModel {
   }
 
   public List<Transaction> getTransactions() {
+    // Making list immutable when getter is invokes
     return Collections.unmodifiableList(transactions);
   }
 

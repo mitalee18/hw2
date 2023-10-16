@@ -4,6 +4,9 @@ import model.Transaction;
 
 import java.util.List;
 
+/**
+ * Interface for creating class which have the method filter
+ */
 public interface TransactionFilter {
-    public List<Transaction> filter(List<Transaction> transactions, List<Object> filterValues);
+    List<Transaction> filter(List<Transaction> transactions, List<Object> filterValues);
 }

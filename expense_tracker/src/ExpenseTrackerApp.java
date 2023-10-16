@@ -1,11 +1,8 @@
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 import controller.ExpenseTrackerController;
 import model.ExpenseTrackerModel;
 import view.ExpenseTrackerView;
-import model.Transaction;
-import controller.InputValidation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,12 +40,16 @@ public class ExpenseTrackerApp {
       String category;
       double minAmount, maxAmount;
       List<Object> obj;
-      boolean added = false;
+      boolean added;
       if (filterSelected.equals("Category")){
         category = view.getFilteredCategory();
         obj = new ArrayList<>();
         obj.add(category);
         added = controller.applyFilter(obj, filterSelected);
+        if (!added) {
+          JOptionPane.showMessageDialog(view, "Category Select is None");
+          view.toFront();
+        }
       }
       else if (filterSelected.equals("Amount")) {
         obj = new ArrayList<>();
@@ -57,12 +58,21 @@ public class ExpenseTrackerApp {
         obj.add(minAmount);
         obj.add(maxAmount);
         added = controller.applyFilter(obj, filterSelected);
+        if (!added) {
+          JOptionPane.showMessageDialog(view, "Invalid minimum or maximum Amount");
+          view.toFront();
+        }
       }
-      if (!added) {
-        JOptionPane.showMessageDialog(view, "Invalid minimum or maximum Amount");
+      else{
+        JOptionPane.showMessageDialog(view, "Filter Type not selected");
         view.toFront();
       }
 
+
+    });
+
+    view.getRemoveFilterBtn().addActionListener(e -> {
+      controller.removerFilter();
     });
 
   }

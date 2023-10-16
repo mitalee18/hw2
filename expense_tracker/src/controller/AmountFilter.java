@@ -5,6 +5,9 @@ import model.Transaction;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Filtering transactions according to category
+ */
 public class AmountFilter implements TransactionFilter{
     @Override
     public List<Transaction> filter(List<Transaction> transactions, List<Object> filterValues) {

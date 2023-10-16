@@ -2,10 +2,10 @@ package model;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 public class Transaction {
 
+  //Made the variables of transaction class as private to prevent external data modification
   private final double amount;
   private final String category;
   private final String timestamp;

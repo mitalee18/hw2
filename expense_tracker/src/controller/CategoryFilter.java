@@ -2,10 +2,12 @@ package controller;
 
 import model.Transaction;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Filtering transactions according to category
+ */
 public class CategoryFilter implements TransactionFilter{
 
     @Override

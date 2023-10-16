@@ -1,19 +1,14 @@
 package view;
 
 import javax.swing.*;
-import javax.swing.JFormattedTextField.AbstractFormatterFactory;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
-import controller.InputValidation;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.text.NumberFormat;
 
 import model.Transaction;
+
 import java.util.List;
 
 public class ExpenseTrackerView extends JFrame {
@@ -22,6 +17,8 @@ public class ExpenseTrackerView extends JFrame {
   private final JButton addTransactionBtn;
 
   private final JButton addFilterBtn;
+
+  private final JButton removeFilterBtn;
   private JFormattedTextField amountField;
   private JTextField categoryField;
   private final DefaultTableModel model;
@@ -42,6 +39,7 @@ public class ExpenseTrackerView extends JFrame {
 
     addTransactionBtn = new JButton("Add Transaction");
     addFilterBtn = new JButton("Add Filter");
+    removeFilterBtn = new JButton("Remove Filter");
 
     // Create UI components
     JLabel amountLabel = new JLabel("Amount:");
@@ -60,12 +58,14 @@ public class ExpenseTrackerView extends JFrame {
     String[] filterType = {"None","Category", "Amount"};
     filterBox = new JComboBox<>(filterType);
 
-    String[] categoryFilterOption = {"food", "travel", "bills", "entertainment", "other"};
+    String[] categoryFilterOption = {"None","food", "travel", "bills", "entertainment", "other"};
     categoryBox = new JComboBox<>(categoryFilterOption);
     minAmountField = new JFormattedTextField(format);
     maxAmountField = new JFormattedTextField(format);
-    minAmountField.setColumns(10);
-    maxAmountField.setColumns(10);
+    JLabel minAmountLabel = new JLabel("Minimum: ");
+    minAmountField.setColumns(5);
+    JLabel maxAmountLabel = new JLabel("Maximum: ");
+    maxAmountField.setColumns(5);
 
 
     // Create table
@@ -80,68 +80,41 @@ public class ExpenseTrackerView extends JFrame {
 
     inputPanel.add(filterTypeLabel);
     inputPanel.add(filterBox);
-    inputPanel.add(categoryBox).setVisible(false);
-    inputPanel.add(minAmountField).setVisible(false);
-    inputPanel.add(maxAmountField).setVisible(false);
 
+
+    // Adding Action Listener on filter box
     filterBox.addActionListener(e -> {
       String filterSelected = (String) filterBox.getSelectedItem();
       assert filterSelected != null;
       if (filterSelected.equals("Category")){
         inputPanel.add(categoryBox).setVisible(true);
+        inputPanel.add(minAmountLabel).setVisible(false);
         inputPanel.add(minAmountField).setVisible(false);
+        inputPanel.add(maxAmountLabel).setVisible(false);
         inputPanel.add(maxAmountField).setVisible(false);
       }
       else if (filterSelected.equals("Amount")) {
         inputPanel.add(categoryBox).setVisible(false);
+        inputPanel.add(minAmountLabel).setVisible(true);
         inputPanel.add(minAmountField).setVisible(true);
+        inputPanel.add(maxAmountLabel).setVisible(true);
         inputPanel.add(maxAmountField).setVisible(true);
-
-        minAmountField.addFocusListener(new FocusListener() {
-          @Override
-          public void focusGained(FocusEvent e) {
-            if (minAmountField.getText().equals("Minimum Amount")){
-              minAmountField.setText("");
-            }
-          }
-
-          @Override
-          public void focusLost(FocusEvent e) {
-            if(minAmountField.getText().isEmpty()){
-              minAmountField.setText("Minimum Amount");
-            }
-          }
-        });
-
-        maxAmountField.addFocusListener(new FocusListener() {
-          @Override
-          public void focusGained(FocusEvent e) {
-            if (maxAmountField.getText().equals("Maximum Amount")){
-              maxAmountField.setText("");
-            }
-          }
-
-          @Override
-          public void focusLost(FocusEvent e) {
-            if (maxAmountField.getText().isEmpty()){
-              maxAmountField.setText("Maximum Amount");
-            }
-          }
-        });
       }
       else{
         inputPanel.add(categoryBox).setVisible(false);
+        inputPanel.add(minAmountLabel).setVisible(false);
         inputPanel.add(minAmountField).setVisible(false);
+        inputPanel.add(maxAmountLabel).setVisible(false);
         inputPanel.add(maxAmountField).setVisible(false);
       }
       setVisible(true);
     });
 
-    inputPanel.add(addTransactionBtn);
-
+    // Add Buttons
     JPanel buttonPanel = new JPanel();
     buttonPanel.add(addTransactionBtn);
     buttonPanel.add(addFilterBtn);
+    buttonPanel.add(removeFilterBtn);
   
     // Add panels to frame
     add(inputPanel, BorderLayout.NORTH);
@@ -149,11 +122,9 @@ public class ExpenseTrackerView extends JFrame {
     add(buttonPanel, BorderLayout.SOUTH);
   
     // Set frame properties
-    setSize(900, 300);
+    setSize(1200, 400);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setVisible(true);
-
-
   
   }
 
@@ -171,10 +142,10 @@ public class ExpenseTrackerView extends JFrame {
       for(Transaction t : transactions) {
         model.addRow(new Object[]{rowNum+=1,t.getAmount(), t.getCategory(), t.getTimestamp()}); 
       }
-        // Add total row
-        Object[] totalRow = {"Total", null, null, totalCost};
-        model.addRow(totalRow);
-  
+
+      // Add total row
+      Object[] totalRow = {"Total", null, null, totalCost};
+      model.addRow(totalRow);
       // Fire table update
       transactionsTable.updateUI();
   
@@ -205,26 +176,16 @@ public class ExpenseTrackerView extends JFrame {
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
                                                        boolean hasFocus, int row, int column) {
           Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-  
-          // Add rows from transactions list
-          boolean isHighlighted = false;
-  
-          if (row < filteredTransactions.size() && filteredTransactions.contains(allTransactions.get(row))){
-            isHighlighted = true;
-          }
-  
-          if(isHighlighted) {
-            c.setBackground(new Color(173, 255, 168)); // Light green
+          // Set color if the transaction is present in filtered list
+            if(row < allTransactions.size() && filteredTransactions.contains(allTransactions.get(row))) {
+              c.setBackground(new Color(173, 255, 168)); // Light green
           }
           else {
             c.setBackground(Color.WHITE);
           }
           return c;
         }});
-  
-  
-  
-  
+
       // Fire table update
       transactionsTable.updateUI();
   
@@ -241,6 +202,8 @@ public class ExpenseTrackerView extends JFrame {
   public JButton getAddFilterBtn() {
     return addFilterBtn;
   }
+
+  public JButton getRemoveFilterBtn(){ return removeFilterBtn;}
 
   public double getMinAmountField(){
     if(minAmountField.getText().isEmpty()){

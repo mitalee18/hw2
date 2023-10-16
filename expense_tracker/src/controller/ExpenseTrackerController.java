@@ -2,6 +2,7 @@ package controller;
 
 import view.ExpenseTrackerView;
 
+import java.util.Collections;
 import java.util.List;
 
 
@@ -10,11 +11,11 @@ import model.ExpenseTrackerModel;
 import model.Transaction;
 public class ExpenseTrackerController {
   
-  private ExpenseTrackerModel model;
-  private ExpenseTrackerView view;
+  private final ExpenseTrackerModel model;
+  private final ExpenseTrackerView view;
 
-  private TransactionFilter amtFilter;
-  private  TransactionFilter catFilter;
+  private final TransactionFilter amtFilter;
+  private final TransactionFilter catFilter;
 
   public ExpenseTrackerController(ExpenseTrackerModel model, ExpenseTrackerView view) {
     this.model = model;
@@ -51,24 +52,41 @@ public class ExpenseTrackerController {
   }
 
   // Other controller methods
+
+    /**
+     *
+     * @param filterList: list of transaction object on which we will apply filter
+     * @param filterType: type of filter we want to apply
+     * @return True or False to verify if we can apply filter, in case of amount because it has inputType as textbox and category has input as drop down
+     */
   public boolean applyFilter(List<Object> filterList, String filterType){
         List<Transaction> allTransactions = model.getTransactions();
         List<Transaction> transactions;
+
         //checking the type of filter chosen
         if(filterType.equalsIgnoreCase("category")){
-          transactions = catFilter.filter(allTransactions, filterList);
+          if(((String) filterList.get(0)).equalsIgnoreCase("None")){
+            return false;
+          }
+            transactions = catFilter.filter(allTransactions, filterList);
         }
         else{
-          //testing if the filter input for min and max amount is valid
+          //validating if the filter input for min and max amount is valid
           if (!InputValidation.isValidAmount((double) filterList.get(0)) && !InputValidation.isValidAmount((double) filterList.get(1))) {
             return false;
           }
           transactions = amtFilter.filter(allTransactions, filterList);
         }
+
         view.refreshTableWithColor(allTransactions, transactions);
-//        for (Transaction t: transactions){
-//          System.out.println(t.getAmount());
-//        }
+
         return true;
+  }
+
+    /**
+     * Removes filter from the filtered transaction
+     */
+  public void removerFilter(){
+    view.refreshTableWithColor(model.getTransactions(), Collections.emptyList());
   }
 }
