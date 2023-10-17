@@ -1,0 +1,146 @@
+commit e2ed3ff98dd06d45d6a4b1396d4a96b63874ba7c
+Author: mitalee18 <mitaleeminde@gmail.com>
+Date:   Mon Oct 16 19:31:35 2023 -0400
+
+    Added comments, made minor changes and modified README.md file
+
+commit 3596559d9b68246cba719207675501130cba638e
+Merge: 3505e82 db2fe8f
+Author: Riya-Parte <117792718+Riya-Parte@users.noreply.github.com>
+Date:   Sun Oct 15 14:17:35 2023 -0400
+
+    Merge pull request #7 from mitalee18/dev3
+    
+    Added color to filter
+
+commit db2fe8ff6c956066f21c78e0c99f01e117db0851
+Author: RiyaParte <parteriya21@gmail.com>
+Date:   Sun Oct 15 14:16:06 2023 -0400
+
+    Added color to filter
+
+commit 3505e82ecc59fbffb8caa93bbc09b39bfd91d0b2
+Merge: d9c5ff1 614f68f
+Author: Riya-Parte <117792718+Riya-Parte@users.noreply.github.com>
+Date:   Sun Oct 15 13:44:51 2023 -0400
+
+    Merge pull request #6 from mitalee18/revert-5-dev2
+    
+    Revert "Dev2"
+
+commit 614f68f5d41c86e8545527d4887425795d05258d
+Author: Riya-Parte <117792718+Riya-Parte@users.noreply.github.com>
+Date:   Sun Oct 15 13:44:23 2023 -0400
+
+    Revert "Dev2"
+
+commit d9c5ff13e7fbfdf76a19d3f4ad0deb8b14b867a6
+Merge: c62dcb6 042aa98
+Author: Riya-Parte <117792718+Riya-Parte@users.noreply.github.com>
+Date:   Sun Oct 15 13:36:09 2023 -0400
+
+    Merge pull request #5 from mitalee18/dev2
+    
+    Dev2
+
+commit 042aa98aee003f277686a6378396a7e2087aa613
+Author: RiyaParte <parteriya21@gmail.com>
+Date:   Sun Oct 15 13:34:55 2023 -0400
+
+    Added color for filters
+
+commit 0a45d687d2a6b9879780567a8d5b792972f149b0
+Author: RiyaParte <parteriya21@gmail.com>
+Date:   Sun Oct 15 13:32:00 2023 -0400
+
+    Added color for filters
+
+commit c62dcb6901c86ee59e3f062ec6d7120e1a8caf13
+Merge: c362891 48d7e14
+Author: Mitalee Minde <32922301+mitalee18@users.noreply.github.com>
+Date:   Sun Oct 15 12:01:47 2023 -0400
+
+    Merge pull request #4 from mitalee18/dev-1
+    
+    Resolved bugs and added more functionality for filters
+
+commit 48d7e147276c3dcbb4cc4892f71b67d6e27d728f
+Author: mitalee18 <mitaleeminde@gmail.com>
+Date:   Sun Oct 15 11:35:34 2023 -0400
+
+    Resolved bugs and added more functionality for filters
+
+commit c362891e6d4a784be11f10649e181e010f1f38f6
+Merge: c2daac5 5cc69ec
+Author: Riya-Parte <117792718+Riya-Parte@users.noreply.github.com>
+Date:   Fri Oct 13 21:50:01 2023 -0400
+
+    Merge pull request #3 from mitalee18/dev-1
+    
+    Added UI focus functionality
+
+commit 5cc69ec6b3a9cdb7b071255c65f307f15e4ae0ff
+Author: mitalee18 <mitaleeminde@gmail.com>
+Date:   Fri Oct 13 21:47:00 2023 -0400
+
+    Added UI focus functionality
+
+commit c2daac55cd06c15443de111f52724ef92b9bf768
+Merge: 526221f ec9868a
+Author: Mitalee Minde <32922301+mitalee18@users.noreply.github.com>
+Date:   Fri Oct 13 21:30:16 2023 -0400
+
+    Merge pull request #2 from mitalee18/dev-1
+    
+    Added UI functionality
+
+commit ec9868aa7fe1158390b3fa46fe48741c1d497d3d
+Author: mitalee18 <mitaleeminde@gmail.com>
+Date:   Fri Oct 13 21:24:38 2023 -0400
+
+    Added UI functionality
+
+commit 526221fdd7240d5dbb461b8bc8a9b9c379762dbb
+Merge: b21da9f 64001e1
+Author: Mitalee Minde <32922301+mitalee18@users.noreply.github.com>
+Date:   Thu Oct 12 20:11:05 2023 -0400
+
+    Merge pull request #1 from mitalee18/dev-1
+    
+    Added modularity
+
+commit 64001e107938d6be6fd981c7059cd8861d663e40
+Author: mitalee18 <mitaleeminde@gmail.com>
+Date:   Thu Oct 12 19:57:03 2023 -0400
+
+    Added modularity
+
+commit b21da9fb7fd47c25881d7fc014a932365cb1552b
+Author: Mahbuba Tasmin <tasmin153@gmail.com>
+Date:   Sat Sep 2 02:42:57 2023 -0400
+
+    Build file update
+
+commit ccabaffc7ff1b7098979a63fcbadf48bc04915c3
+Author: Mahbuba Tasmin <tasmin153@gmail.com>
+Date:   Tue Aug 29 14:49:22 2023 -0400
+
+    File Update
+
+commit 2574c71001a74c29f01f4a84fa99f450158f2f10
+Author: Mahbuba Tasmin <tasmin153@gmail.com>
+Date:   Wed Aug 9 14:11:14 2023 -0400
+
+    Total Cost and Serial update
+
+commit d29d2c8acb4145ce700e0456ccc334da0cad3dc2
+Author: Mahbuba Tasmin <tasmin153@gmail.com>
+Date:   Wed Aug 9 12:54:46 2023 -0400
+
+    HW2 template files
+
+commit 6a51d8019c39a33d581ce078ae8887a022ee806d
+Author: Mahbuba Tasmin <tasmin153@gmail.com>
+Date:   Tue Aug 8 21:48:41 2023 -0400
+
+    Initial commit
