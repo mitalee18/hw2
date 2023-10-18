@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Filtering transactions according to category
+ * Filtering transactions according to amount
  */
 public class AmountFilter implements TransactionFilter{
     @Override

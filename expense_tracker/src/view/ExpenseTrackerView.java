@@ -151,78 +151,8 @@ public class ExpenseTrackerView extends JFrame {
   
     }
 
-    public void refreshTableWithColor(List<Transaction> allTransactions, List<Transaction> filteredTransactions) {
-      // Clear existing rows
-      model.setRowCount(0);
-      // Get row count
-      int rowNum = model.getRowCount();
-      double totalCost=0;
-  
-      //calculating total transactions and adding into table
-      for(Transaction t : allTransactions)
-      {
-        totalCost+=t.getAmount();
-        model.addRow(new Object[]{
-                rowNum+=1, t.getAmount(), t.getCategory(), t.getTimestamp()
-        });
-      }
-  
-      // Add total row
-      Object[] totalRow = {"Total", null, null, totalCost};
-      model.addRow(totalRow);
-  
-      transactionsTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-        @Override
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-                                                       boolean hasFocus, int row, int column) {
-          Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-          // Set color if the transaction is present in filtered list
-            if(row < allTransactions.size() && filteredTransactions.contains(allTransactions.get(row))) {
-              c.setBackground(new Color(173, 255, 168)); // Light green
-          }
-          else {
-            c.setBackground(Color.WHITE);
-          }
-          return c;
-        }});
-
-      // Fire table update
-      transactionsTable.updateUI();
-  
-    }
-
-
   public JButton getAddTransactionBtn() {
     return addTransactionBtn;
-  }
-
-  public String getFilterSelected(){
-    return (String) filterBox.getSelectedItem();
-  }
-  public JButton getAddFilterBtn() {
-    return addFilterBtn;
-  }
-
-  public JButton getRemoveFilterBtn(){ return removeFilterBtn;}
-
-  public double getMinAmountField(){
-    if(minAmountField.getText().isEmpty()){
-      return 0;
-    }else{
-      return Double.parseDouble(minAmountField.getText());
-    }
-  }
-
-  public String getFilteredCategory(){
-    return (String) categoryBox.getSelectedItem();
-  }
-
-  public double getMaxAmountField(){
-    if(minAmountField.getText().isEmpty()){
-      return 1000;
-    }else{
-      return Double.parseDouble(maxAmountField.getText());
-    }
   }
 
   public DefaultTableModel getTableModel() {
@@ -254,4 +184,75 @@ public class ExpenseTrackerView extends JFrame {
   public void setCategoryField(JTextField categoryField) {
     this.categoryField = categoryField;
   }
+  public String getFilterSelected(){
+    return (String) filterBox.getSelectedItem();
+  }
+  public JButton getAddFilterBtn() {
+    return addFilterBtn;
+  }
+
+  public JButton getRemoveFilterBtn(){ return removeFilterBtn;}
+
+  public double getMinAmountField(){
+    if(minAmountField.getText().isEmpty()){
+      return 0;
+    }else{
+      return Double.parseDouble(minAmountField.getText());
+    }
+  }
+
+  public String getFilteredCategory(){
+    return (String) categoryBox.getSelectedItem();
+  }
+
+  public double getMaxAmountField(){
+    if(minAmountField.getText().isEmpty()){
+      return 1000;
+    }else{
+      return Double.parseDouble(maxAmountField.getText());
+    }
+  }
+
+  public void refreshTableWithColor(List<Transaction> allTransactions, List<Transaction> filteredTransactions) {
+    // Clear existing rows
+    model.setRowCount(0);
+    // Get row count
+    int rowNum = model.getRowCount();
+    double totalCost=0;
+
+    //calculating total transactions and adding into table
+    for(Transaction t : allTransactions)
+    {
+      totalCost+=t.getAmount();
+      model.addRow(new Object[]{
+              rowNum+=1, t.getAmount(), t.getCategory(), t.getTimestamp()
+      });
+    }
+
+    // Add total row
+    Object[] totalRow = {"Total", null, null, totalCost};
+    model.addRow(totalRow);
+
+    // handle row coloring
+    transactionsTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+      @Override
+      public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+                                                     boolean hasFocus, int row, int column) {
+        Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+        // Set color if the transaction is present in filtered list
+        if(row < allTransactions.size() && filteredTransactions.contains(allTransactions.get(row))) {
+          c.setBackground(new Color(173, 255, 168)); // Light green
+        }
+        else {
+          c.setBackground(Color.WHITE);
+        }
+        return c;
+      }});
+
+    // Fire table update
+    transactionsTable.updateUI();
+
+  }
+
+
 }

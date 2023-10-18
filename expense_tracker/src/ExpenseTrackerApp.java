@@ -34,7 +34,7 @@ public class ExpenseTrackerApp {
       }
     });
 
-
+  // handle adding filter
     view.getAddFilterBtn().addActionListener(e -> {
       String filterSelected = view.getFilterSelected();
       String category;
@@ -71,6 +71,7 @@ public class ExpenseTrackerApp {
 
     });
 
+    //removing filter
     view.getRemoveFilterBtn().addActionListener(e -> {
       controller.removerFilter();
     });
